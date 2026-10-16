@@ -1,0 +1,18 @@
+services:
+  external-ip-monitor:
+    build: .
+    image: external-ip-monitor:latest
+    container_name: external-ip-monitor
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      IP_MONITOR_HISTORY_LIMIT: "10000"
+      IP_MONITOR_PAGE_SIZES: "10,25,50,100"
+      IP_MONITOR_DEFAULT_PAGE_SIZE: "25"
+      IP_MONITOR_LOG_FILE: /data/ip-monitor.log
+    volumes:
+      - external-ip-monitor-data:/data
+
+volumes:
+  external-ip-monitor-data:
